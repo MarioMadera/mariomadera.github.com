@@ -1,8 +1,8 @@
-= Jugando con Docker 
+# Jugando con Docker 
 
 Todas estas notas son tomadas sobre la base de [https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository]
 
-== Instalacion de Docker en Ubuntu
+## Instalacion de Docker en Ubuntu
 > **Nota**: Recordar setear *proxy* en la sesion antes de iniciar y de configurar sudo para que mantenga las 
 >           variables de entorno definidas.
 
@@ -52,9 +52,9 @@ dic 11 14:06:42 myhost dockerd[21384]: time="2017-12-11T14:06:42.684906617-03:00
 
 9. root@myhost:~# apt-get install docker-compose
 
-== Pruebas
+## Pruebas
 
-=== sudo docker run hello-world
+### sudo docker run hello-world
 
 Falla con este mensaje:
 ```
@@ -117,7 +117,7 @@ For more examples and ideas, visit:
 https://docs.docker.com/engine/userguide/
 ```
 
-=== Manejo de permisos
+### Manejo de permisos
 Ejecutando como usuario no previlegiado mediante sudo, no hay problema.
 Intentaré agregar un usuario al grupo docker y ejecutqar el hello-world
 
@@ -150,7 +150,7 @@ For more examples and ideas, visit:
 https://docs.docker.com/engine/userguide/
 ```
 
-== Crear una imagen a medida
+## Crear una imagen a medida
 
 Cree una carpeta docker-projects y una dentro de ella para nginx.
 Luego genere directorios adicionales para config, logs y contenido.
@@ -229,28 +229,26 @@ http {
     }
 }
 ```
-=== Construyo la imagen
+### Construyo la imagen
     docker build -t ute:nginx .
 
-=== Creo un contendor con esa imagen, monto una rutal local al host y nateo el puerto
+### Creo un contendor con esa imagen, monto una rutal local al host y nateo el puerto
     docker run -d -p 127.0.0.1:8080:80 --name nginx_01 --volume /var/www/kb:/var/www ute:nginx    
     
-=== Para bajar el contenedor
+### Para bajar el contenedor
     docker stop nginx_01
     
-=== Estadísticas de los docker 
+### Estadísticas de los docker 
     docker stats nginx_01    
     
-=== Para borrar el contendor
+### Para borrar el contendor
     docker rm nginx_01
         
-=== Acceder a la linea de comando dentro del contenedor
+### Acceder a la linea de comando dentro del contenedor
     docker exec -it nginx_01 bash
 
-=== Donde quedan las imágenes de docker?
+### Donde quedan las imágenes de docker?
 en /var/lib/docker
 
-=== Comandos
+### Comandos
 Listar Imagenes -- docker ls
-
-
