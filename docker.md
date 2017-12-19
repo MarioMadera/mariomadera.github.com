@@ -73,11 +73,11 @@ Docker no tiene salida a internet, encuentro como agregar el proxy en https://st
 > mkdir /etc/systemd/system/docker.service.d
 > (2) Add proxy in /etc/systemd/system/docker.service.d/http-proxy.conf file:
 > 
-> # vi /etc/systemd/system/docker.service.d/http-proxy.conf
-> [Service]
-> Environment="HTTP_PROXY=http://172.26.67.48:3128/"
-> Environment="HTTPS_PROXY=http://172.26.67.48:3128/"
-> Environment="NO_PROXY=localhost,127.0.0.1,localaddress,.localdomain.com,172.26*,192.168.*,*.corp.ute.com.uy"
+> `# vi /etc/systemd/system/docker.service.d/http-proxy.conf`
+> `[Service]`
+> `Environment="HTTP_PROXY=http://172.26.67.48:3128/"`
+> `Environment="HTTPS_PROXY=http://172.26.67.48:3128/"`
+> `Environment="NO_PROXY=localhost,127.0.0.1,localaddress,.localdomain.com,172.26*,192.168.*,*.mi.dominio.com"`
 > (3) Flush changes:
 > 
 > systemctl daemon-reload
@@ -158,44 +158,41 @@ content es un enlace a /var/www/kb (kb de prueba)
 
 Genero un dockerfile usando alpine 3.5 como base
 ```
-| sopaplic1@myhost:~/docker-projects/nginx$ ls                |
-| config  content  Dockerfile  logs                           |
-| sopaplic1@myhost:~/docker-projects/nginx$ cat Dockerfile    |
-| FROM alpine:3.5                                             |
-| MAINTAINER Mario Madera <mmadera@ute.com.uy>                |
-|                                                             |
-| # Defino las variables de entorno para el proxy             |
-|                                                             |
-| ENV http_proxy=http://172.26.67.48:3128                     |
-| ENV https_proxy=http://172.26.67.48:3128                    |
-| ENV no_proxy=localhost,127.0.0.1                            |
-| ENV HTTP_PROXY=http://172.26.67.48:3128                     |
-| ENV HTTPS_PROXY=http://172.26.67.48:3128                    |
-| ENV NO_PROXY=localhost,127.0.0.1                            |
-|                                                             |
-| # Instalacion de paquetes necesarios                        |
-| RUN apk update                                              |
-| RUN apk add bash                                            |
-| RUN apk add nginx                                           |
-| RUN apk add curl                                            |
-| RUN rm -rf  /var/cache/apk/*                                |
-|                                                             |
-| # Creacion de usuario y ruta base,                          |
-| # en /wwww montaremos el directorio compartido              |
-| # con el host                                               |
-| RUN adduser -D -g 'www' www                                 |
-| RUN mkdir /www                                              |
-| RUN chown -R www:www /var/lib/nginx                         |
-| RUN chown -R www:www /www                                   |
-|                                                             |
-|                                                             |
-| # Cargo el archivo de configuracion                         |
-| RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig     |
-| COPY ./config/nginx.conf /etc/nginx/nginx.conf              |
-|                                                             |
-| EXPOSE 80                                                   |
-|                                                             |
-| CMD ["nginx", "-g", "daemon off;"]                          |
+ FROM alpine:3.5                                             
+ MAINTAINER Mario Madera <mmadera@ute.com.uy>                
+                                                             
+ # Defino las variables de entorno para el proxy             
+                                                             
+ ENV http_proxy=http://172.26.67.48:3128                     
+ ENV https_proxy=http://172.26.67.48:3128                    
+ ENV no_proxy=localhost,127.0.0.1                            
+ ENV HTTP_PROXY=http://172.26.67.48:3128                     
+ ENV HTTPS_PROXY=http://172.26.67.48:3128                    
+ ENV NO_PROXY=localhost,127.0.0.1                            
+                                                             
+ # Instalacion de paquetes necesarios                        
+ RUN apk update                                              
+ RUN apk add bash                                            
+ RUN apk add nginx                                           
+ RUN apk add curl                                            
+ RUN rm -rf  /var/cache/apk/*                                
+                                                             
+ # Creacion de usuario y ruta base,                          
+ # en /wwww montaremos el directorio compartido              
+ # con el host                                               
+ RUN adduser -D -g 'www' www                                 
+ RUN mkdir /www                                              
+ RUN chown -R www:www /var/lib/nginx                         
+ RUN chown -R www:www /www                                   
+                                                             
+                                                             
+ # Cargo el archivo de configuracion                         
+ RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig     
+ COPY ./config/nginx.conf /etc/nginx/nginx.conf              
+                                                             
+ EXPOSE 80                                                   
+                                                             
+ CMD ["nginx", "-g", "daemon off;"]                          
 ```
 
 El comando copy carga el archivo de configuracion de nginx al contendor
