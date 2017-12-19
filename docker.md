@@ -73,11 +73,13 @@ Docker no tiene salida a internet, encuentro como agregar el proxy en https://st
 > mkdir /etc/systemd/system/docker.service.d
 > (2) Add proxy in /etc/systemd/system/docker.service.d/http-proxy.conf file:
 > 
-> `# vi /etc/systemd/system/docker.service.d/http-proxy.conf`
-> `[Service]`
-> `Environment="HTTP_PROXY=http://172.26.67.48:3128/"`
-> `Environment="HTTPS_PROXY=http://172.26.67.48:3128/"`
-> `Environment="NO_PROXY=localhost,127.0.0.1,localaddress,.localdomain.com,172.26*,192.168.*,*.mi.dominio.com"`
+> ```
+vi /etc/systemd/system/docker.service.d/http-proxy.conf
+[Service]
+Environment="HTTP_PROXY=http://172.26.67.48:3128/"
+Environment="HTTPS_PROXY=http://172.26.67.48:3128/"
+Environment="NO_PROXY=localhost,127.0.0.1,localaddress,.localdomain.com,172.26*,192.168.*,*.mi.dominio.com"
+```
 > (3) Flush changes:
 > 
 > systemctl daemon-reload
