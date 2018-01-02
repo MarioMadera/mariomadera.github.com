@@ -1,3 +1,15 @@
+
+
+
+
+
+
+
+
+
+
+
+
 # Jugando con Docker 
 
 Todas estas notas son tomadas sobre la base de [https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository]
@@ -68,11 +80,11 @@ Docker no tiene salida a internet, encuentro como agregar el proxy en https://st
 
 > Ubuntu 16.04 LTS
 > For Ubuntu 16.04 LTS who uses Systemd, you can follow this post:
-> 
+>
 > (1) Create a systemd drop-in directory:
 > mkdir /etc/systemd/system/docker.service.d
 > (2) Add proxy in /etc/systemd/system/docker.service.d/http-proxy.conf file:
-> 
+>
 > ```
 > vi /etc/systemd/system/docker.service.d/http-proxy.conf
 > [Service]
@@ -81,10 +93,10 @@ Docker no tiene salida a internet, encuentro como agregar el proxy en https://st
 > Environment="NO_PROXY=localhost,127.0.0.1,localaddress,.localdomain.com,172.26*,192.168.*,*.mi.dominio.com"
 > ```
 > (3) Flush changes:
-> 
+>
 > systemctl daemon-reload
 > (4) Restart Docker:
-> 
+>
 > systemctl restart docker
 
 
@@ -233,16 +245,16 @@ http {
 
 ### Creo un contendor con esa imagen, monto una rutal local al host y nateo el puerto
     docker run -d -p 127.0.0.1:8080:80 --name nginx_01 --volume /var/www/kb:/var/www ute:nginx    
-    
+
 ### Para bajar el contenedor
     docker stop nginx_01
-    
+
 ### Estadísticas de los docker 
     docker stats nginx_01    
-    
+
 ### Para borrar el contendor
     docker rm nginx_01
-        
+
 ### Acceder a la linea de comando dentro del contenedor
     docker exec -it nginx_01 bash
 
