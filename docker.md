@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 # Jugando con Docker 
 
 Todas estas notas son tomadas sobre la base de [https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository]

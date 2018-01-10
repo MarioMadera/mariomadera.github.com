@@ -244,6 +244,8 @@ Cleaning up...
 
 ```
 
+
+
 ## PHP 7.1  
 
 La razón de usar 7.1 está dada en https://www.drupal.org/docs/8/system-requirements/php 
@@ -321,16 +323,36 @@ https://www.adminer.org/
  curl -OL https://github.com/vrana/adminer/releases/download/v4.3.1/adminer-4.3.1.zip
  unzip adminer-4.3.1.zip
  mv adminer-4.3.1 adminer
- mv adminer /var/www/html/
- chown -R apache:apache /var/www/html/adminer
- find /var/www/html/adminer -type d -exec chmod 775 {} \;
- find /var/www/html/adminer -type f -exec chmod 664 {} \;
+ mv adminer /var/www/
+ chown -R apache:apache /var/www/adminer
+ find /var/www/adminer -type d -exec chmod 775 {} \;
+ find /var/www/adminer -type f -exec chmod 664 {} \;
  
 ```
 
-Las prubas de acceso a http://localhost:8080/adminiser/adminer fallaron por falta de permisos. El log de error decía que los permisos de navegación por los directorios estaba truncada a pesar de los pasos anteriores.... ¡¡SELINUX!!
+Recordar editar el archivo ```/etc/selinux/config``` y dejé la variable ```SELINUX=disable```  y reiniciar.
 
-Edite el archivo ```/etc/selinux/config``` y dejé la variable ```SELINUX=disable```  . Renicié y pude acceder.
+Crear un VirtualHost en `/etc/httpd/conf.d/adminer.conf`
+
+    <VirtualHost *:80>
+    	ServerAdmin webmaster@dummy-host.example.com
+    	DocumentRoot /var/www/adminer
+    	ServerName adminer
+    	ServerAlias adminer
+    	ErrorLog  /var/log/httpd/adminer_error.log
+    	CustomLog /var/log/httpd/adminer_custom.log common
+    </VirtualHost>	
+Agregar la enrtrada correspondiente en `/etc/hosts` 
+
+````
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+127.0.0.1   adminer
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+````
+
+En el host windows editar el archivo `c:\windows\system32\drivers\etc\hosts` y agregar una entrada similar
+
+Ahora podemos acceder desde el host usando http://adminer:8080/adminer
 
 ## Instalacion de Composer, Drush y Drupal 8 
 
@@ -465,7 +487,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORA
        RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
      </Directory>
     ServerName drupal8dev
-    ServerAlias ddrupal8dev
+    ServerAlias drupal8dev
     ErrorLog  /var/log/httpd/drupal/drupal8-dev_error.log
     CustomLog /var/log/httpd/drupal/drupal8-dev_custom.log common
 </VirtualHost>
@@ -476,6 +498,7 @@ Luego de esto agregamos una entrada en ```/etc/hosts``` para resolver el server 
 ```
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 127.0.0.1   drupal8dev
+127.0.0.1   adminer
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 ```
 
@@ -526,4 +549,3 @@ yumn install tmux
 drupal8dev/drup4l8.dev
 
 Administrator/admin.1234
-
