@@ -202,65 +202,68 @@ for each module in 00-base.conf do
 		systemctl restart httpd.service    
 ```
 
-| Modulo                  | Estado | Uso  |
-| ----------------------- | ------ | ---- |
-| access_compat_module    | On     |      |
-| actions_module          | Off    |      |
-| alias_module            | On     |      |
-| allowmethods_module     | On     |      |
-| auth_basic_module       | Off    |      |
-| auth_digest_module      | Off    |      |
-| authn_anon_module       | Off    |      |
-| authn_core_module       | Off    |      |
-| authn_dbd_module        | Off    |      |
-| authn_dbm_module        | Off    |      |
-| authn_file_module       | Off    |      |
-| authn_socache_module    | Off    |      |
-| authz_core_module       | On     |      |
-| authz_dbd_module        | Off    |      |
-| authz_dbm_module        | Off    |      |
-| authz_groupfile_module  | Off    |      |
-| authz_host_module       | Off    |      |
-| authz_owner_module      | Off    |      |
-| authz_user_module       | Off    |      |
-| autoindex_module        | On     |      |
-| cache_module            | On     |      |
-| cache_disk_module       | Off    |      |
-| data_module             | Off    |      |
-| dbd_module              | Off    |      |
-| deflate_module          | On     |      |
-| dir_module              | On     |      |
-| dumpio_module           | Off    |      |
-| echo_module             | Off    |      |
-| env_module              | Off    |      |
-| expires_module          | On     |      |
-| ext_filter_module       | Off    |      |
-| filter_module           | On     |      |
-| headers_module          | On     |      |
-| include_module          | On     |      |
-| info_module             | Off    |      |
-| log_config_module       | On     |      |
-| logio_module            | Off    |      |
-| mime_magic_module       | On     |      |
-| mime_module             | On     |      |
-| negotiation_module      | Off    |      |
-| remoteip_module         | On     |      |
-| reqtimeout_module       | On     |      |
-| rewrite_module          | On     |      |
-| setenvif_module         | Off    |      |
-| slotmem_plain_module    | On     |      |
-| slotmem_shm_module      | On     |      |
-| socache_dbm_module      | On     |      |
-| socache_memcache_module | On     |      |
-| socache_shmcb_module    | On     |      |
-| status_module           | On     |      |
-| substitute_module       | On     |      |
-| suexec_module           | Off    |      |
-| unique_id_module        | On     |      |
-| unixd_module            | On     |      |
-| userdir_module          | Off    |      |
-| version_module          | On     |      |
-| vhost_alias_module      | On     |      |
+| Modulo                  | Estado | Uso                                      |
+| ----------------------- | ------ | ---------------------------------------- |
+| access_compat_module    | On     |                                          |
+| actions_module          | Off    |                                          |
+| alias_module            | On     |                                          |
+| allowmethods_module     | On     |                                          |
+| auth_basic_module       | Off    |                                          |
+| auth_digest_module      | Off    |                                          |
+| authn_anon_module       | Off    |                                          |
+| authn_core_module       | Off    |                                          |
+| authn_dbd_module        | Off    |                                          |
+| authn_dbm_module        | Off    |                                          |
+| authn_file_module       | Off    |                                          |
+| authn_socache_module    | Off    |                                          |
+| authz_core_module       | On     |                                          |
+| authz_dbd_module        | Off    |                                          |
+| authz_dbm_module        | Off    |                                          |
+| authz_groupfile_module  | Off    |                                          |
+| authz_host_module       | Off    |                                          |
+| authz_owner_module      | Off    |                                          |
+| authz_user_module       | Off    |                                          |
+| autoindex_module        | On     |                                          |
+| cache_module            | On     |                                          |
+| cache_disk_module       | Off    |                                          |
+| cache_socache_module    | On     |                                          |
+| data_module             | Off    |                                          |
+| dbd_module              | Off    |                                          |
+| deflate_module          | On     |                                          |
+| dir_module              | On     |                                          |
+| dumpio_module           | Off    |                                          |
+| echo_module             | Off    |                                          |
+| env_module              | Off    |                                          |
+| expires_module          | On     |                                          |
+| ext_filter_module       | Off    |                                          |
+| filter_module           | On     |                                          |
+| headers_module          | On     |                                          |
+| include_module          | On     |                                          |
+| info_module             | Off    |                                          |
+| log_config_module       | On     |                                          |
+| logio_module            | Off    |                                          |
+| macro_module            | Off    |                                          |
+| mime_magic_module       | On     |                                          |
+| mime_module             | On     |                                          |
+| negotiation_module      | Off    |                                          |
+| remoteip_module         | On     |                                          |
+| reqtimeout_module       | On     |                                          |
+| rewrite_module          | On     |                                          |
+| setenvif_module         | On     | Requerido por mod_ssl                    |
+| slotmem_plain_module    | On     |                                          |
+| slotmem_shm_module      | On     |                                          |
+| socache_dbm_module      | On     |                                          |
+| socache_memcache_module | On     |                                          |
+| socache_shmcb_module    | On     |                                          |
+| status_module           | On     |                                          |
+| substitute_module       | On     |                                          |
+| suexec_module           | Off    |                                          |
+| unique_id_module        | On     |                                          |
+| unixd_module            | On     |                                          |
+| userdir_module          | Off    |                                          |
+| version_module          | On     |                                          |
+| vhost_alias_module      | On     |                                          |
+| watchdog_module         | On     | Requerido. No inicia el servicio sin el. |
 
 Hasta aquí son 28 módulos menos que OutOfTheBox.
 00-dav.conf

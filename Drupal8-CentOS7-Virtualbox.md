@@ -1,3 +1,5 @@
+
+
 #Instalación de Drupal 8 sobre CentOS 7 en VirtualBox 
 
 ## Idea
@@ -158,6 +160,38 @@ systemctl disable var-log-httpd.mount
  # efectivamente, este era el problema.
 ```
 
+Se siguieron los [pasos de Hardening](./Apache.md).
+
+Se solicitaron alias DNS para cada virtualhost y los certificados para configurar SSL.
+
+Instalamos el módulo de SSL
+
+```
+[root@lvwdrup8devapp conf.modules.d]# yum install httpd24-mod_ssl.x86_64
+Loaded plugins: product-id, search-disabled-repos, subscription-manager
+This system is not registered to Red Hat Subscription Management. You can use subscription-manager to register.
+Resolving Dependencies
+--> Running transaction check
+---> Package httpd24-mod_ssl.x86_64 1:2.4.27-8.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================
+ Package                                          Arch                                    Version                                         Repository                              Size
+===================================================================================================================================
+Installing:
+ httpd24-mod_ssl                                  x86_64                                  1:2.4.27-8.el7                                  rhscl                                  110 k
+
+Transaction Summary
+===================================================================================================================================
+Install  1 Package
+
+Total download size: 110 k
+Installed size: 232 k
+
+```
+
 Ahora debo agregar el Reenvío de Puertos hacia el host. Ver tabla al final del documento.
 
 |                   | guest | host |
@@ -165,84 +199,7 @@ Ahora debo agregar el Reenvío de Puertos hacia el host. Ver tabla al final del 
 | **Default HTTP**  |  80   | 8080 |
 | **Default HTTPS** |  443  | 4433 |
 
-
-
-## Instalar MySQL 5.5+
-
-[https://linode.com/docs/databases/mysql/how-to-install-mysql-on-centos-7/]
-
-```bash
-curl -OL http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
-yum update
-sudo yum install mysql-server
-sudo systemctl start mysqld
-sudo systemctl status mysqld -l
-sudo systemctl enable mysqld
-sudo mysql_secure_installation
-
-NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
-      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
-
-In order to log into MySQL to secure it, we'll need the current
-password for the root user.  If you've just installed MySQL, and
-you haven't set the root password yet, the password will be blank,
-so you should just press enter here.
-
-Enter current password for root (enter for none):
-OK, successfully used password, moving on...
-
-Setting the root password ensures that nobody can log into the MySQL
-root user without the proper authorisation.
-
-Set root password? [Y/n] Y
-New password: 1qaz2wsx
-Re-enter new password: 1qaz2wsx
-Password updated successfully!
-Reloading privilege tables..
- ... Success!
-
-
-By default, a MySQL installation has an anonymous user, allowing anyone
-to log into MySQL without having to have a user account created for
-them.  This is intended only for testing, and to make the installation
-go a bit smoother.  You should remove them before moving into a
-production environment.
-
-Remove anonymous users? [Y/n] Y
- ... Success!
-
-Normally, root should only be allowed to connect from 'localhost'.  This
-ensures that someone cannot guess at the root password from the network.
-
-Disallow root login remotely? [Y/n] Y
- ... Success!
-
-By default, MySQL comes with a database named 'test' that anyone can
-access.  This is also intended only for testing, and should be removed
-before moving into a production environment.
-
-Remove test database and access to it? [Y/n] Y
- - Dropping test database...
-ERROR 1008 (HY000) at line 1: Can't drop database 'test'; database doesn't exist
- ... Failed!  Not critical, keep moving...
- - Removing privileges on test database...
- ... Success!
-
-Reloading the privilege tables will ensure that all changes made so far
-will take effect immediately.
-
-Reload privilege tables now? [Y/n] Y
- ... Success!
-
-All done!  If you've completed all of the above steps, your MySQL
-installation should now be secure.
-
-Thanks for using MySQL!
-
-Cleaning up...
-
-```
+Solicitar Datos de las bases para los sitios a Enrique Machado
 
 
 
