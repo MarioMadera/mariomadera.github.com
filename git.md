@@ -4,6 +4,11 @@
 
 ```
 git config --global http.proxy http://proxyuser:proxypwd@proxy.server.com:8080
+git config --global https.proxy http://proxyuser:proxypwd@proxy.server.com:8080
+
+
+git config --global http.proxy http://172.26.67.48:3128
+git config --global https.proxy http://172.26.67.48:3128
 ```
 
 ## Comandos Básicos

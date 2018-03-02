@@ -287,13 +287,9 @@ Hasta aquí son 28 módulos menos que OutOfTheBox.
 | cgid_module | Off    |      |
 | cgi_module  | Off    |      |
 
-### Específicas de Drupal 8
-
-#### Editar el robots.txt
-
-Duplicar las secciones Directories y Paths. Eliminar las / al final
 
 
 
-diff --changed-group-format='%<' --unchanged-group-format='' 00-base.conf 00-base.conf.orig
+
+
 
