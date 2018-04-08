@@ -183,3 +183,48 @@ https://www.drupal.org/project/goaway
 https://2bits.com/articles/presentation-28-million-page-views-day-70-million-month-one-server.html
 
 https://www.drupal.org/forum/support/post-installation/2007-05-19/node_counter-what-is-is-and-how-do-i-use-it
+
+
+
+### Solucionando Problemas
+
+https://www.drupal.org/project/registry_rebuild
+
+Como buscar info sobre módulos instalados y borrarlos cuando no estan en filesystem
+
+```shell
+drush sql-query "select filename,info from system where type='module' and name='openpublic_editors_choice'"
+drush sql-query "DELETE from system where name = 'openpublic_editors_choice';"
+```
+
+La mejor opcion es recuperar nombre y version, instalar, y luego por drush
+
+```shell
+drush dis <module>
+drus pm-uninstall <module>
+```
+
+
+
+
+
+PHP Fatal error:  Class 'EntityCacheControllerHelper' not found in /var/www/drupal-test/profiles/openpublic/modules/contrib/entitycache/entitycache.taxonomy.inc on line 29
+solucion
+    drush sql-query "truncate table registry_file;"
+    https://www.drupal.org/project/registry_rebuild
+
+
+
+
+
+https://www.drupal.org/project/menu_target/issues/2945123
+
+```
+so line 19 of menu_target.admin.inc
+if (empty($enabled_menus) || empty(array_filter($enabled_menus))) {
+will cause the error mentioned in the title.
+
+this can be fixed by just doing the same thing in a different way. The following change should work.
+if (empty($enabled_menus) || !count(array_filter($enabled_menus))) {
+```
+
