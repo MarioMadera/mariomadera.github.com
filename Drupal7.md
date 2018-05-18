@@ -2,7 +2,7 @@
 
 ## Problemas de Seguridad
 
-### robots.txt
+### robots.txt (*)
 
 Hay que copiar secciones enteras al final del documento y quitar la / al final. Se muestran las secciones a continuación..
 
@@ -38,17 +38,15 @@ Disallow: /?q=user/login
 Disallow: /?q=user/logout  
 ```
 
-## Clickjacking
+## Clickjacking (*)
 
-Agregar 
+Agregar en el .htaccess de drupal.
 
 ```
 Header always append X-Frame-Options SAMEORIGIN  
 ```
 
-en el .htaccess de drupal.
-
-##Configuración de Proxy para actualizar.
+##Configuración de Proxy para actualizar. 
 
 ```
 /**
@@ -62,7 +60,7 @@ en el .htaccess de drupal.
  * proxy_exceptions variable is an array of host names to be accessed directly,
  * not via proxy.
  */
-$conf['proxy_server'] = '172.26.67.48';
+$conf['proxy_server'] = 'X.Y.67.48';
 $conf['proxy_port'] = 3128;
 # $conf['proxy_username'] = '';
 # $conf['proxy_password'] = '';
@@ -145,7 +143,7 @@ Lo recuperan los motores de busqueda para indexar el sitio. Se puede configurar 
 ## Busquemos además que módulos están habilitados
 
 ```
-drupadmin@lvwdruppreprdapp drupal-preprd]$ drush pml --status=Enabled
+drupadmin@drupalstg drupal-preprd]$ drush pml --status=Enabled
 ```
 
 ### Problemas de Cookies
@@ -206,16 +204,10 @@ drus pm-uninstall <module>
 
 
 
-
-
 PHP Fatal error:  Class 'EntityCacheControllerHelper' not found in /var/www/drupal-test/profiles/openpublic/modules/contrib/entitycache/entitycache.taxonomy.inc on line 29
 solucion
     drush sql-query "truncate table registry_file;"
     https://www.drupal.org/project/registry_rebuild
-
-
-
-
 
 https://www.drupal.org/project/menu_target/issues/2945123
 
@@ -226,5 +218,13 @@ will cause the error mentioned in the title.
 
 this can be fixed by just doing the same thing in a different way. The following change should work.
 if (empty($enabled_menus) || !count(array_filter($enabled_menus))) {
+```
+
+## DRUSH
+
+### Entrar/salir de modo mantenimiento
+
+```
+drush vset maintenance_mode 1/0
 ```
 

@@ -1,6 +1,8 @@
-
-
 #Instalación de Drupal 8 sobre CentOS 7 en VirtualBox 
+
+[TOC]
+
+
 
 ## Idea
 
@@ -167,7 +169,7 @@ Se solicitaron alias DNS para cada virtualhost y los certificados para configura
 Instalamos el módulo de SSL
 
 ```
-[root@lvwdrup8devapp conf.modules.d]# yum install httpd24-mod_ssl.x86_64
+[root@dev-drupalapp conf.modules.d]# yum install httpd24-mod_ssl.x86_64
 Loaded plugins: product-id, search-disabled-repos, subscription-manager
 This system is not registered to Red Hat Subscription Management. You can use subscription-manager to register.
 Resolving Dependencies

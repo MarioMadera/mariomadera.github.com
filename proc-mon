@@ -1,0 +1,77 @@
+# Uso del script
+show_help() {
+cat << EOF
+Uso: ${0##*/} -p PID -c n -s m 
+Muestra los recursos consumidos por el proceso PID durante 
+n ciclos con una espera de m segundos entre cada uno.
+Opciones:
+    -p PID
+    -c n ciclos 
+    -s m segundos de espera 
+EOF
+}
+
+# Initialize our own variables:
+p_flag=0
+c_flag=0
+s_flag=0
+pid=""
+ciclos=""
+segundos=""
+
+OPTIND=1
+
+while getopts p:c:s: opt; do
+    case $opt in
+        p)
+            p_flag=1
+            pid=$OPTARG
+            ;;
+        c)
+            c_flag=1
+            ciclos=$OPTARG
+            ;;
+        s)  s_flag=1
+            segundos=$OPTARG
+            ;;
+        *)
+            show_help >&2
+            exit 1
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+# Chequeos
+if [[ $(( p_flag * c_flag * s_flag )) -eq 1 ]];
+then
+   
+   #Verifico si existe el $pid
+   ps -ef | grep -v grep | grep $pid > /dev/null
+   if [[ $? -ne 0 ]]; then
+      echo "No se encuentra el proceso con id $pid." >&2
+      exit 1;
+   fi
+   
+ 
+   if [[ -z "${ciclos##*[!0-9]*}" ]] ; then
+      echo "No se recibio un nro enteros de ciclos." >&2 
+      exit 1
+   fi   
+
+   if [[ -z "${segundos##*[!0-9]*}" ]] ; then
+      echo "No se recibio un nro enteros de segundos." >&2 
+      exit 1
+   fi 
+   
+   ps v $pid | head -1                #Imprime el cabezal
+   i=1 
+   while [[ i -lt $ciclos ]]; do 
+      ps v $pid | tail -1; 
+      let i=i+1; 
+      sleep $segundos; 
+   done
+else
+   show_help
+   exit 1
+fi
