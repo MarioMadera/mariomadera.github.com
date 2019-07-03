@@ -40,7 +40,7 @@ Si son los probes del F5, podría ignorarlos...
 ## Separar en logs distintos las entradas de los probes. 
 
 Seteo una variable de entorno para evitar loguear los probes
-
+```
     SetEnvIf Remote_Addr X.Y.171.210  probe-no-log
     SetEnvIf Remote_Addr X.Y.171.211  probe-no-log
     
@@ -52,3 +52,4 @@ Seteo una variable de entorno para evitar loguear los probes
        ErrorLog  /var/log/httpd24/drupal/drup8-test_probes-error.log
        CustomLog /var/log/httpd24/drupal/drup8test_probes-access.log ute-wls_style  env=probe-no-log
     </IfModule>
+```
