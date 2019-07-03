@@ -40,7 +40,7 @@ Si son los probes del F5, podría ignorarlos...
 ## Separar en logs distintos las entradas de los probes. 
 
 Seteo una variable de entorno para evitar loguear los probes
-```
+```sh
     SetEnvIf Remote_Addr X.Y.171.210  probe-no-log
     SetEnvIf Remote_Addr X.Y.171.211  probe-no-log
     
